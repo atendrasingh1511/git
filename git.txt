@@ -1,0 +1,123 @@
+#############################################
+Undo unstaged Changes
+
+1) git checkout abc.txt / git restore abc.txt
+2) git checkout . (all files) / git restore .
+
+###############################################
+To Delete Untracked files
+1) git clean -dn (will list the files which will be deleted by command 2)
+2) git clean -df (it will delete the files)
+
+##############################################
+To Delete files form working directory (which was part of commit and tracked)
+1) git ls-files (will list the files)
+2) git rm abc.txt
+
+#############################################
+Switch command is the new way to create branch and select a branch
+1) git switch first-branch
+2) git swtich -c second-branch
+
+##############################################
+Undo Staged Changes (remove from staged)
+1) git reset abc.txt
+2) git restore --staged abc.txt (new way)
+
+############################################
+Deleting commit with git reset
+git reset help us the reset the head of our branch using this we undo the commits.
+1) git reset --soft HEAD~1 // this command remove the last commit from the log. the changes will reflect in working direcotry and staged area. (git ls-files)
+2) git reset HEAD~1 // It will remove the commit and move the changes to unstaged area.
+3) git reset --hard HEAD~1 // this will remove the commit and changes from the working directory and staged area.
+
+#############################################
+Deleting Branches
+1) git branch -D/d branch-name 
+-d will only allow the branch to be delete if the branch is already merged
+-D will delete forcefully
+2) git branch -D branch-one branch-two // multiple branch deletions command
+3) git branch --delete --remote origin/brnach-name // delete remote tracking branch
+4) git push origin --delete feature // remove remote branch, if you first remove remote branch, remote tracking branch will also be deleted
+
+############################################
+Commiting detached HEAD
+1) git checkout commitID
+2) if any new changes then add, else step 3
+3) git add .
+4) git commit -m "message"
+5) git branch branch-name // it will create the branch containing these changes
+
+############################################
+Merge Branch 
+1) git checkout/switch master
+2) git merge feature-branch
+
+#############################################
+
+git log // display all commits of current branch
+git branch
+git branch -a // all branch
+git branch -r // remote tracking branch
+git branch -vv // 
+git branch --track branch-name orign/branch-name
+git ls-remote
+git revert commitId // revert last branch but will create a new commitID that will contain the reverted changes
+
+###############################################
+git stash // if you want to store the staged changes and later may be use these changes.
+
+1) git stash push -m "message"
+2) git stash list
+3) git stash pop 0 // this will remove the changes from the stash list and add it to the unstaged area. then you can add and commit
+4) git stash drop 0 // to remove stash
+5) git stash clear // to clear all the stash 
+
+#############################################
+Branging lost data Back with git reflog
+
+By using git reflog we can get back deleted commit and branch 
+Example for Deleted Commit:- git reset --hard HEAD~1 
+// Now if you check the git log this commit is not available. so to access this lost information we can use git reflog
+1) git reflog
+2) git reset --hard d45464rtuk
+3) git log // now thev lost information is brought back to our project
+
+Example for Deleted Branch:- git brach -D branch-name
+1) git reflog
+2) git checkout d0669ghbnmd // detached head 
+3) git switch -c feature 
+
+#############################################
+
+Squash command // to merge all the commits of feature branch into a single commit in master
+1) git checkout master
+2) git merge --squash feature
+3) git log
+4) git status
+5) git commit -m "merged featured branch"
+6) git log
+
+#############################################
+Rebase
+1) git checkout feature
+2) git rebase master
+
+#############################################
+Cherry-pick
+1) git cherry-pick commitID
+it will merge commit into master
+
+#############################################
+git tag
+
+1) git tag // will list all the tags
+2) git tag 1.0 commitId // light weighted tag
+3) git show 1.0
+4) usage:- git checkout 1.0 // now you are on detached HEAD
+5) git tag -d 1.0 // remove the tag
+6) git tag -a 2.0 -m "message" // annotated tag
+
+#######################################################
+
+
